@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        string temp = "";
+
+        for(char c : s) {
+            if((c >= 'a' && c <= 'z') ||
+               (c >= 'A' && c <= 'Z') ||
+               (c >= '0' && c <= '9')) {
+                temp += tolower(c);
+            }
+        }
+
+        int i = 0, j = temp.size() - 1;
+
+        while(i < j) {
+            if(temp[i] != temp[j])
+                return false;
+            i++;
+            j--;
+        }
+
+        return true;
+    }
+};
