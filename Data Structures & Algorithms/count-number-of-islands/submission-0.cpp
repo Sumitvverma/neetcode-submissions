@@ -1,0 +1,40 @@
+class Solution {
+public:
+    void solve(int i, int j, int n, int m,
+               vector<vector<char>>& grid,
+               vector<vector<int>>& vis) {
+        vis[i][j] = 1;
+
+        int dc[] = {1, 0, -1, 0};
+        int dr[] = {0, 1, 0, -1};
+
+        for(int k = 0; k < 4; k++) {
+            int nr = i + dr[k];
+            int nc = j + dc[k];
+
+            if(nr >= 0 && nc >= 0 && nr < n && nc < m &&
+               grid[nr][nc] == '1' && !vis[nr][nc]) {
+                solve(nr, nc, n, m, grid, vis);
+            }
+        }
+    }
+
+    int numIslands(vector<vector<char>>& grid) {
+        int n = grid.size();
+        int m = grid[0].size();
+        int island = 0;
+
+        vector<vector<int>> vis(n, vector<int>(m, 0));
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < m; j++) {
+                if(grid[i][j] == '1' && vis[i][j] == 0) {
+                    solve(i, j, n, m, grid, vis);
+                    island++;
+                }
+            }
+        }
+
+        return island;
+    }
+};
